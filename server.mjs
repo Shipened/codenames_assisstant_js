@@ -1,6 +1,6 @@
-import express from 'express';
-import { generatePromptTarget, runPrompt } from './public/index.js';
-import dotenv from 'dotenv';
+import express from "express";
+import { generatePromptTarget, runPrompt } from "./public/index.js";
+import dotenv from "dotenv";
 dotenv.config();
 import { Configuration, OpenAIApi } from "openai";
 const app = express();
@@ -13,28 +13,28 @@ const config = new Configuration({
 //Creates and instence of OpenAIApi and passes config
 const openai = new OpenAIApi(config);
 
-
 // Middleware to parse incoming form data
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Serve static files (e.g., index.html, main.css, and index.js)
-app.use(express.static('public'));
+app.use(express.static("public"));
 
 // POST route to handle the form submission
-app.post('/', async (req, res) => {
-  //event.preventDefault();
+app.post("/", async (req, res) => {
   const clue = req.body.clue;
-  const avoidWords = req.body['avoid words'];
+  const avoidWords = req.body["avoid words"];
 
-  // Add your logic to process the form data and generate a response
-  // For example, you can call your functions here and send the response back
+  // Generate the prompt based on the input data
   const prompt = generatePromptTarget(clue, avoidWords);
-  
-  const response = await runPrompt(prompt);
-  console.log(response);
-  // Replace the following with your response
 
+  // Generate the response using OpenAI API
+  const response = await runPrompt(prompt);
+
+  // // Send the response back to the client
   res.send(response);
+
+  // res.json({ response });
 });
 
 // Start the server

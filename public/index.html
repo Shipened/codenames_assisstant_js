@@ -1,79 +1,55 @@
 <!DOCTYPE html>
 <head>
   <title>Codenames Assistant</title>
-  <link
-    rel="shortcut icon"
-    href="red-blue-agents.jpg"
-  />
+  <link rel="shortcut icon" href="red-blue-agents.jpg" />
   <link rel="stylesheet" href="main.css" />
 </head>
 
 <body>
-  <img src="red-blue-agents.jpg" class="icon" width="100000" height="100"/>
+  <img src="red-blue-agents.jpg" class="icon" width="100000" height="100" />
   <h3>Codenames Clue Generator</h3>
-  <form id = "myForm" method="post" onsubmit="saveClue()">
-    <input type="text" name="clue" id="clueId" placeholder="Enter target words" required />
-    <input type="text" name="avoid words" id="avoidId" placeholder="Enter words to avoid (Optional)" />
+  <form id="myForm" method="post">
+    <input
+      type="text"
+      name="clue"
+      id="clueId"
+      placeholder="Enter target words"
+      required
+    />
+    <input
+      type="text"
+      name="avoid words"
+      id="avoidId"
+      placeholder="Enter words to avoid (Optional)"
+    />
     <input type="submit" value="Generate clues" />
   </form>
- 
+
   <div id="promptDisplay"></div>
 
   <script src="index.js" type="module"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
-    // Function to save the clue to local storage
-    function saveClue() {
-      const clueInput = document.getElementById('clueId');
-      localStorage.setItem('lastClue', clueInput.value);
-    }
+    // JavaScript code to handle form submission and AJAX request
+    $(document).ready(function () {
+      $("#myForm").submit(function (event) {
+        event.preventDefault(); // Prevent form submission from reloading the page
+        const formData = $(this).serialize(); // Serialize form data
 
-    // Retrieve the last clue from local storage and set it to the input field on page load
-    window.onload = function() {
-      const lastClue = localStorage.getItem('lastClue');
-      if (lastClue) {
-        const clueInput = document.getElementById('clueId');
-        clueInput.value = lastClue;
-      }
-    };
-  </script>
-
-<!--   
-<script>
-  document.getElementById('myForm').addEventListener('submit', async (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
-
-    const clue = document.getElementById('clue').value;
-    const avoidWords = document.getElementById('avoidWords').value;
-
-    const formData = {
-      clue: clue,
-      'avoid words': avoidWords
-    };
-
-    try {
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
+        // Make the AJAX POST request
+        $.ajax({
+          type: "POST",
+          url: "/", // The server route handling the request
+          data: formData,
+          success: function (response) {
+            // Update the result on the current page
+            $("#promptDisplay").html("<br>" + response);
+          },
+          error: function (error) {
+            console.error("Error:", error);
+          },
+        });
       });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok.');
-      }
-
-      const responseData = await response.json();
-      console.log(responseData); // Display the response data in the browser console
-
-      // Update the DOM with the received data
-      const responseContainer = document.getElementById('responseContainer');
-      responseContainer.textContent = JSON.stringify(responseData);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  });
-</script>
+    });
+  </script>
 </body>
- -->
