@@ -1,5 +1,5 @@
 import express from "express";
-import { generatePromptTarget, runPrompt } from "./public/index.js";
+import { generatePromptTarget, runPrompt } from "./docs/index.js";
 import dotenv from "dotenv";
 dotenv.config();
 import { Configuration, OpenAIApi } from "openai";
@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Serve static files (e.g., index.html, main.css, and index.js)
-app.use(express.static("public"));
+app.use(express.static("docs"));
 
 // POST route to handle the form submission
 app.post("/", async (req, res) => {

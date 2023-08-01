@@ -25,6 +25,10 @@
     <input type="submit" value="Generate clues" />
   </form>
 
+  <div id="loadingThrobber" style="display: none;">
+    <img src="Loading_icon_cropped.gif">
+  </div>
+
   <div id="promptDisplay"></div>
 
   <script src="index.js" type="module"></script>
@@ -35,6 +39,8 @@
       $("#myForm").submit(function (event) {
         event.preventDefault(); // Prevent form submission from reloading the page
         const formData = $(this).serialize(); // Serialize form data
+        
+        $('#loadingThrobber').show();
 
         // Make the AJAX POST request
         $.ajax({
@@ -44,6 +50,7 @@
           success: function (response) {
             // Update the result on the current page
             $("#promptDisplay").html("<br>" + response);
+            $('#loadingThrobber').hide();
           },
           error: function (error) {
             console.error("Error:", error);
