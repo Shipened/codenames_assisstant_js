@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import { Configuration, OpenAIApi } from "openai";
 const app = express();
-const port = 3000; // Change this to the desired port number
+const port = process.env.PORT || 3000; // Change this to the desired port number
 
 const config = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
