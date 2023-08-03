@@ -7,13 +7,23 @@
 
 <body>
   <img src="red-blue-agents.jpg" class="icon" width="100000" height="100" />
-  <h3>Codenames Clue Generator</h3>
+  <h3>Codenames Clue Guesser</h3>
   <form id="myForm" method="post">
+    <label>Choose game number:</label>
+    <div class = "dropdown-wrapper">
+    <select id="game" name="game">
+      <option value = 1> 1 </option>
+      <option value = 2> 2 </option>
+      <option value = 3> 3 </option>
+      <option value = 4> 4 </option>
+    </select>
+  </div>
+  
     <input
       type="text"
       name="clue"
       id="clueId"
-      placeholder="Enter target words"
+      placeholder="Enter your spymasters clue!"
       required
     />
     <input

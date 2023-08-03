@@ -1,5 +1,5 @@
 import express from "express";
-import { generatePromptTarget, runPrompt } from "./docs/index.js";
+import { generateClueSuggestion, generateClueGuess, runClueSuggestion, runClueGuess } from "./docs/index.js";
 import dotenv from "dotenv";
 dotenv.config();
 import { Configuration, OpenAIApi } from "openai";
@@ -24,15 +24,26 @@ app.use(express.static("docs"));
 app.post("/", async (req, res) => {
   const clue = req.body.clue;
   const avoidWords = req.body["avoid words"];
+  const selectedGame = req.body.game;
 
+  if (selectedGame === "1" || selectedGame === "2" || selectedGame === "3" || selectedGame === "4") {
+    // Generate the prompt based on the input data
+    const prompt = generateClueGuess(selectedGame, clue, avoidWords);
+    // Generate the response using OpenAI API
+    const response = await runClueGuess(prompt);
+    // // Send the response back to the client
+    res.send(response);
+  } 
+  else {
   // Generate the prompt based on the input data
-  const prompt = generatePromptTarget(clue, avoidWords);
-
+  const prompt = generateClueSuggestion(clue, avoidWords);
   // Generate the response using OpenAI API
-  const response = await runPrompt(prompt);
-
+  const response = await runClueSuggestion(prompt);
   // // Send the response back to the client
   res.send(response);
+  }
+  
+  
 
   // res.json({ response });
 });
