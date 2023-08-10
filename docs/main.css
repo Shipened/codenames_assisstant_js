@@ -43,7 +43,7 @@ form {
 }
 input[type="text"] {
   padding: 12px 16px;
-  border: 1px solid #a21054ad;
+  border: 1px solid #851448;
   border-radius: 4px;
   margin-bottom: 24px;
 }
@@ -54,7 +54,7 @@ input[type="text"] {
 input[type="submit"] {
   padding: 12px 0;
   color: #fff;
-  background-color: #a21054ad;
+  background-color: #851448;
   border: none;
   border-radius: 4px;
   text-align: center;
@@ -63,7 +63,7 @@ input[type="submit"] {
 button[type=roleSelect] {
   padding: 12px 0;
   color: #fff;
-  background-color: #a21054ad;
+  background-color: #851448;
   border: 2px solid black;
   border-radius: 4px;
   text-align: center;
