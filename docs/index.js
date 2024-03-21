@@ -6,14 +6,16 @@ dotenv.config();
 // // Create a virtual DOM using jsdom
 // const { document } = new JSDOM().window;
 
-import { Configuration, OpenAIApi } from "openai";
+import OpenAI  from "openai";
 
-const config = new Configuration({
+//const config = new Configuration({
+//  apiKey: process.env.OPENAI_API_KEY,
+//});
+
+//Creates and instence of OpenAI and passes config
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-
-//Creates and instence of OpenAIApi and passes config
-const openai = new OpenAIApi(config);
 
 function generateClueSuggestion(target, avoid = "") {
   return `Give me some clues that relate the following target words, but avoids the unwanted words. Target words: ${
@@ -49,8 +51,8 @@ function generateClueGuess(game, clue, avoid = "") {
 }
 
 async function runClueSuggestion(prompt) {
-  const completion = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
+  const completion = await openai.chat.completions.create({
+    model: "gpt-4-turbo-preview",
     messages: [
       {
         role: "system",
@@ -98,12 +100,12 @@ async function runClueSuggestion(prompt) {
     temperature: 1,
   });
 
-  return completion.data.choices[0].message.content;
+  return completion.choices[0].message.content;
 }
 
 async function runClueGuess(prompt) {
-  const completion = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
+  const completion = await openai.chat.completions.create({
+    model: "gpt-4-turbo-preview",
     messages: [
       {
         "role": "system",

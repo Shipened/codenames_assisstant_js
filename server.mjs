@@ -2,16 +2,18 @@ import express from "express";
 import { generateClueSuggestion, generateClueGuess, runClueSuggestion, runClueGuess } from "./docs/index.js";
 import dotenv from "dotenv";
 dotenv.config();
-import { Configuration, OpenAIApi } from "openai";
+import OpenAI  from "openai";
 const app = express();
 const port = process.env.PORT || 3000; // Change this to the desired port number
 
-const config = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+//const config = new Configuration({
+//  apiKey: process.env.OPENAI_API_KEY,
+//});
 
 //Creates and instence of OpenAIApi and passes config
-const openai = new OpenAIApi(config);
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 // Middleware to parse incoming form data
 app.use(express.urlencoded({ extended: true }));

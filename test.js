@@ -9,8 +9,8 @@ const openai = new OpenAIApi(configuration);
 
 async function runPrompt() {
 
-  const completion = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
+  const completion = await openai.chat.completions.create({
+    model: "gpt-4-turbo-preview",
     messages: [{"role": "system", "content": "You are a helpful assistant."}, {role: "user", content: "Hello world"}],
     });
 
