@@ -153,6 +153,6 @@ async function runClueGuess(prompt) {
     temperature: 1,
   });
 
-  return completion.data.choices[0].message.content;
+  return completion.choices[0].message.content;
 }
 export { generateClueSuggestion, generateClueGuess, runClueSuggestion, runClueGuess };
